@@ -8,3 +8,5 @@ option_values = re.findall(r'value="\s*([A-Za-z0-9]+)\s*"', html_content)
 
 # Print all extracted values
 print("Extracted values:", option_values)
+
+print("Test")
