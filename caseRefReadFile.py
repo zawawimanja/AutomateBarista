@@ -1,16 +1,15 @@
 # Read HTML content from a file
-with open("caseRef.html", "r") as file:
+with open('caseRef.html', 'r') as file:
     html_content = file.read()
 
 # Extract option values using a regex that matches both numeric and alphanumeric values
 import re
-
 option_values_raw = re.findall(r'value="\s*([A-Za-z0-9,]+)\s*"', html_content)
 
 # Split combined values into individual values
 option_values = []
 for value in option_values_raw:
-    option_values.extend(value.split(","))
+    option_values.extend(value.split(','))
 
 # List of input values to check
 input_values = [
@@ -31,12 +30,27 @@ input_values = [
     "A31NTI20240000218",
     "A31NTI20240000228",
     "A31NTI20240000250",
-    "A31NTI20240000266",
+    "A31NTI20240000266"
 ]
+
+# Lists to store values that exist and do not exist
+exist_values = []
+not_exist_values = []
 
 # Check if each input value exists in the extracted option values
 for value in input_values:
     if value in option_values:
-        print(f"{value} exists in the options.")
+        exist_values.append(value)
     else:
-        print(f"{value} does not exist in the options.")
+        not_exist_values.append(value)
+
+# Function to print the values in groups
+def print_in_groups(values, group_name):
+    print(f"\n{group_name} ({len(values)} items):")
+    for i in range(0, len(values), 5):
+        group = values[i:i + 5]
+        print(", ".join(group))
+
+# Print the results
+print_in_groups(exist_values, "Exist")
+print_in_groups(not_exist_values, "Not Exist")
